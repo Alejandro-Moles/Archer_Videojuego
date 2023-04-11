@@ -18,8 +18,6 @@ public class BowAttack : MonoBehaviour
 
     [Header("Disparo")]
     [SerializeField] private BowController Bow;
-    private float TimeReload = 2;
-    private bool CanShoot = true;
     
 
     #endregion
@@ -43,7 +41,7 @@ public class BowAttack : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            Bow.RecoilArrow();
+            //Bow.Recoil();
             isAiming = true;
             MainCam.SetActive(false);
             BowCam.SetActive(true);
@@ -82,12 +80,4 @@ public class BowAttack : MonoBehaviour
     #region Metodos Get/Set
     public bool GetSetIsAiming { get => isAiming; set => isAiming = value; }
     #endregion
-
-    #region Corrutinas
-    private IEnumerator CooldownShoot()
-    {
-        yield return new WaitForSeconds(TimeReload);
-        CanShoot = true;
-    }
-    #endregion 
 }

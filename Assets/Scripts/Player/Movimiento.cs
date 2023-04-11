@@ -24,7 +24,7 @@ public class Movimiento : MonoBehaviour
 
     [Header("Salto")]
     private Rigidbody rb;
-    private float JumpForce = 6f;
+    [SerializeField] private float JumpForce = 6f;
     private bool isGrounded;
 
 
@@ -134,11 +134,12 @@ public class Movimiento : MonoBehaviour
 
             transform.Translate(0, 0, 0.5f * Time.deltaTime * speedAim);
 
+            /*
             float medirAngulo = Mathf.Atan2(direccion.x, direccion.z) * Mathf.Rad2Deg + CamaraTransform.eulerAngles.y;
 
             float angulo = Mathf.SmoothDampAngle(transform.eulerAngles.y, medirAngulo, ref referenciaSmooth, smoothAngulo * Time.deltaTime);
 
-            transform.rotation = Quaternion.Euler(0f, angulo, 0f);
+            transform.rotation = Quaternion.Euler(0f, angulo, 0f);*/
         }
         else
         {

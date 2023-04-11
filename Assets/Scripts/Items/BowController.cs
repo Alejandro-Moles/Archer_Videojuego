@@ -27,12 +27,15 @@ public class BowController : MonoBehaviour
 
     [Header("Animator")]
     [SerializeField] private Animator PlayerAnimator;
+
+    [Header("Bow Attack")]
+    [SerializeField] private BowAttack bowAttack;
     #endregion
 
     #region Metodos Unity
     private void Update()
     {
-        movimiento = 0.5f + fuerza;
+        movimiento = 0.7f + fuerza;
 
         RecoilArrow();
     }
@@ -43,7 +46,6 @@ public class BowController : MonoBehaviour
     {
        if(Input.GetMouseButton(0) && Arrow != null)
        {
-            Debug.Log("Cargo");
             power += 0.2f + fuerza;
             power = Mathf.Clamp(power, 0, 30);
 
@@ -53,7 +55,6 @@ public class BowController : MonoBehaviour
 
        if(Input.GetMouseButtonUp(0) && Arrow != null)
         {
-            Debug.Log("Disparo");
             PlayerAnimator.SetTrigger("Disparo");
             Arrow.GetComponent<Rigidbody>().velocity = transform.forward * power;
             Arrow.GetComponent<Rigidbody>().isKinematic= false;
@@ -67,7 +68,7 @@ public class BowController : MonoBehaviour
 
     public void RecoilArrow()
     {
-        if (numArow > 0 && Arrow == null)
+        if (numArow > 0 && Arrow == null && bowAttack.GetSetIsAiming)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -75,6 +76,16 @@ public class BowController : MonoBehaviour
                 Arrow = Instantiate(ArrowPreFab, respawnArrow.position, respawnArrow.rotation);
                 Arrow.transform.SetParent(respawnArrow);
             }
+        }
+    }
+
+    public void Recoil()
+    {
+        if (numArow > 0 && Arrow == null && bowAttack.GetSetIsAiming)
+        {
+            PlayerAnimator.SetTrigger("Recoil");
+            Arrow = Instantiate(ArrowPreFab, respawnArrow.position, respawnArrow.rotation);
+            Arrow.transform.SetParent(respawnArrow);
         }
     }
     #endregion

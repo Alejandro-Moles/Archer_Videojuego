@@ -33,11 +33,14 @@ public class ArrowController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision);
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<CapsuleCollider>().isTrigger = true;
-        flyArrow= false;
-        StartCoroutine(DestroyTime());
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<CapsuleCollider>().isTrigger = true;
+            flyArrow = false;
+            StartCoroutine(DestroyTime());
+        }
+        
     }
     #endregion
 
