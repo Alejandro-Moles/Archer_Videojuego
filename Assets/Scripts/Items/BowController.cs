@@ -9,18 +9,13 @@ public class BowController : MonoBehaviour
     [SerializeField] private Transform ShootPoint;
 
     [Header("Flechas")]
-    //GameObjects
     [SerializeField] private GameObject Arrow;
     [SerializeField] private GameObject ArrowPreFab;
-
-    //numero de flechas
     public int numArow;
 
-    //Transform
     [SerializeField] private Transform respawnArrow;
     [SerializeField] private Transform flechaCargada;
 
-    //Fuerza al lanzar la flecha
     private float power;
     [SerializeField] private float fuerza;
     float movimiento;
@@ -30,6 +25,9 @@ public class BowController : MonoBehaviour
 
     [Header("Bow Attack")]
     [SerializeField] private BowAttack bowAttack;
+
+    [Header("Mira")]
+    [SerializeField] private Transform sight;
     #endregion
 
     #region Metodos Unity
@@ -86,6 +84,21 @@ public class BowController : MonoBehaviour
             PlayerAnimator.SetTrigger("Recoil");
             Arrow = Instantiate(ArrowPreFab, respawnArrow.position, respawnArrow.rotation);
             Arrow.transform.SetParent(respawnArrow);
+        }
+    }
+
+    public void DrawSight(Transform camera)
+    {
+        RaycastHit hit;
+
+        if(Physics.Raycast(camera.position, camera.forward, out hit))
+        {
+            ShootPoint.LookAt(hit.point);
+        }
+        else
+        {
+            Vector3 end = camera.position+ camera.forward;
+            ShootPoint.LookAt(end);
         }
     }
     #endregion

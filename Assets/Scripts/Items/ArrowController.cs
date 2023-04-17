@@ -13,11 +13,15 @@ public class ArrowController : MonoBehaviour
     public bool flyArrow;
     Quaternion rotar;
     public float finalPower;
+
+    [Header("Animaciones Enemigo")]
+    [SerializeField] private Animator EnemyAnimator;
     #endregion
 
     #region Metodos Unity
     private void Start()
     {
+        this.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
         sumArrow = GameObject.FindGameObjectWithTag("arco");
         flyArrow = false;
         rotar = Quaternion.Euler(90,0,0);
@@ -40,7 +44,14 @@ public class ArrowController : MonoBehaviour
             flyArrow = false;
             StartCoroutine(DestroyTime());
         }
-        
+
+        if(!collision.gameObject.CompareTag("arco"))
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<CapsuleCollider>().isTrigger = true;
+            flyArrow = false;
+        }
+
     }
     #endregion
 
@@ -55,7 +66,7 @@ public class ArrowController : MonoBehaviour
     #region Corrutinas
     private IEnumerator DestroyTime()
     {
-        yield return new WaitForSeconds(60);
+        yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }
     #endregion

@@ -41,7 +41,7 @@ public class BowAttack : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            //Bow.Recoil();
+            Bow.DrawSight(BowCam.transform);
             isAiming = true;
             MainCam.SetActive(false);
             BowCam.SetActive(true);

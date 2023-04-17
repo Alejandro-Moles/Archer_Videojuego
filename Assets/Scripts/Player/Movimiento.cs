@@ -36,6 +36,7 @@ public class Movimiento : MonoBehaviour
     #region Metodos Unity
     private void Start()
     {
+        Cursor.lockState = (Input.GetKey(KeyCode.Escape) ? CursorLockMode.None : CursorLockMode.Locked);
         rb = GetComponent<Rigidbody>();
         StartCoroutine(doIdleAnimation());
         bowAttack = GetComponent<BowAttack>();
@@ -131,15 +132,12 @@ public class Movimiento : MonoBehaviour
         if (direccion.magnitude > 0.1f)
         {
             animator.SetBool("AimingWalk", true);
+            animator.SetInteger("Horizontal", (int)x);
+            animator.SetInteger("Vertical", (int)y);
 
-            transform.Translate(0, 0, 0.5f * Time.deltaTime * speedAim);
+            Vector3 Move = transform.right * x + transform.forward * y;
 
-            /*
-            float medirAngulo = Mathf.Atan2(direccion.x, direccion.z) * Mathf.Rad2Deg + CamaraTransform.eulerAngles.y;
-
-            float angulo = Mathf.SmoothDampAngle(transform.eulerAngles.y, medirAngulo, ref referenciaSmooth, smoothAngulo * Time.deltaTime);
-
-            transform.rotation = Quaternion.Euler(0f, angulo, 0f);*/
+            rb.MovePosition(transform.position + Move * speedAim * Time.deltaTime);
         }
         else
         {

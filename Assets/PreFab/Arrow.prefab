@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6568444235418238270}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: arco
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,6 +135,7 @@ MonoBehaviour:
   sumArrow: {fileID: 0}
   flyArrow: 0
   finalPower: 0
+  EnemyAnimator: {fileID: 0}
 --- !u!54 &6568444235418238271
 Rigidbody:
   m_ObjectHideFlags: 0
