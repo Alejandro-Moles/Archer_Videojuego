@@ -24,6 +24,11 @@ public class Camara_Controller : MonoBehaviour
     #endregion
 
     #region Metodos Unity
+
+    private void Start()
+    {
+        gameObject.transform.position = new Vector3(0.1199941f, -1.140005f, -0.630002f);
+    }
     private void FixedUpdate()
     {
         MovimientoRaton();

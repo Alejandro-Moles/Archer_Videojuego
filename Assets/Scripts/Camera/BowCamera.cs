@@ -13,6 +13,9 @@ public class BowCamera : MonoBehaviour
     [SerializeField] private Transform cameraShoulder;
     [SerializeField] private Transform cameraHolder;
 
+    [Header("Punto de Inicio")]
+    [SerializeField] private Transform StartPoint;
+
     private float rotY = 0;
 
     private float rotationSpeed = 200f;
@@ -20,6 +23,11 @@ public class BowCamera : MonoBehaviour
 
 
     #region Metodos Unity
+    private void Start()
+    {
+        gameObject.transform.LookAt(StartPoint.position);
+    }
+
     private void Update()
     {
         CameraControll();
