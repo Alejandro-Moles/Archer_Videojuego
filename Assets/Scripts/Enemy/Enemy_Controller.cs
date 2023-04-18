@@ -50,10 +50,11 @@ public class Enemy_Controller : MonoBehaviour
         if(Distancia <= DistanciaWalk && Distancia > DistaciaAttack)
         {
             gameObject.transform.LookAt(Player.position);
-
             EnemyAnimator.SetBool("Walk", true);
             AI.speed = Velocidad;
             AI.SetDestination(Player.position);
+
+            AttackPoint.SetActive(false);
         }
         else if (Distancia <= DistaciaAttack)
         {
@@ -61,6 +62,8 @@ public class Enemy_Controller : MonoBehaviour
             AI.speed = 0;
             AI.acceleration = 0;
             DoAttack();
+
+            AttackPoint.SetActive(true);
         }
     }
 
@@ -81,7 +84,7 @@ public class Enemy_Controller : MonoBehaviour
                 EnemyAnimator.SetTrigger("Attack");
                 break;
             case 3:
-                EnemyAnimator.SetTrigger("Attack_02");
+                EnemyAnimator.SetTrigger("Attack_02");        
                 break;
         }
 

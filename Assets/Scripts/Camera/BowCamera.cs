@@ -25,7 +25,7 @@ public class BowCamera : MonoBehaviour
     #region Metodos Unity
     private void Start()
     {
-        gameObject.transform.LookAt(StartPoint.position);
+        //gameObject.transform.LookAt(StartPoint.position);
     }
 
     private void Update()

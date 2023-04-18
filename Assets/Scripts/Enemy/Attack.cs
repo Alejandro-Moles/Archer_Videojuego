@@ -14,7 +14,7 @@ public class Attack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerLife.GetDamage();
+            playerLife.GetDamage(20);
         }
     }
     #endregion
