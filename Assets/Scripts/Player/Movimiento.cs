@@ -31,6 +31,9 @@ public class Movimiento : MonoBehaviour
     [Header("Ataque de Arco")]
     private BowAttack bowAttack;
     private float speedAim = 3f;
+
+    [Header("Tutorial")]
+    [SerializeField] private UI userInterface;
     #endregion
 
     #region Metodos Unity
@@ -58,6 +61,14 @@ public class Movimiento : MonoBehaviour
     {
         IsRunning();
         animator.SetBool("IsGrounded", isGrounded);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ControlMover"))
+        {
+            userInterface.MovimientoDone();
+        }
     }
     #endregion
 

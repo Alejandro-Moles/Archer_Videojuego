@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - arrow
   - EnemyAttack
+  - ControlMover
+  - ControlSaltar
   layers:
   - Default
   - TransparentFX
