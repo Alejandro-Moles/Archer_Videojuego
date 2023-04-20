@@ -10,6 +10,7 @@ TagManager:
   - EnemyAttack
   - ControlMover
   - ControlSaltar
+  - ControlDisparo
   layers:
   - Default
   - TransparentFX

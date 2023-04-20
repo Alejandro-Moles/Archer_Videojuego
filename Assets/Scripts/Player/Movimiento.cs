@@ -54,11 +54,11 @@ public class Movimiento : MonoBehaviour
         {
             MovimientoAiming();
         }
-        Jump();
     }
 
     private void Update()
     {
+        Jump();
         IsRunning();
         animator.SetBool("IsGrounded", isGrounded);
     }
@@ -68,6 +68,11 @@ public class Movimiento : MonoBehaviour
         if (other.gameObject.CompareTag("ControlMover"))
         {
             userInterface.MovimientoDone();
+        }
+
+        if (other.gameObject.CompareTag("ControlSaltar"))
+        {
+            userInterface.SaltoDone();
         }
     }
     #endregion
