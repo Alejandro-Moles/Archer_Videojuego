@@ -9,7 +9,7 @@ public class Movimiento : MonoBehaviour
     [SerializeField] private Transform CamaraTransform;
 
     private float referenciaSmooth;
-    private float smoothAngulo = 20f;
+    private float smoothAngulo = 7f;
     
 
     [Header("Movimiento")]
@@ -105,11 +105,14 @@ public class Movimiento : MonoBehaviour
                 transform.Translate(0, 0, 0.5f * Time.deltaTime * speedMove);
             }
 
+            
             float medirAngulo = Mathf.Atan2(direccion.x, direccion.z) * Mathf.Rad2Deg + CamaraTransform.eulerAngles.y;
 
             float angulo = Mathf.SmoothDampAngle(transform.eulerAngles.y, medirAngulo, ref referenciaSmooth, smoothAngulo * Time.deltaTime);
 
             transform.rotation = Quaternion.Euler(0f, angulo, 0f);
+
+
         }
     }
 

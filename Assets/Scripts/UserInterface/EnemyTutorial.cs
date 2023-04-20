@@ -7,6 +7,7 @@ public class EnemyTutorial : MonoBehaviour
     #region Variables
     [Header("Enemigo de Prueba")]
     private Animator EnemyAnimator;
+    private int vida = 3;
     
     [Header("UI")]
     [SerializeField] private UI ui;
@@ -22,8 +23,17 @@ public class EnemyTutorial : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("arco"))
         {
-            EnemyAnimator.SetTrigger("Damage");
-            GetDamage();
+            if(vida == 0) 
+            {
+
+            }
+            else
+            {
+                vida -= 1;
+                EnemyAnimator.SetTrigger("Damage");
+                GetDamage();
+            }
+            
         }
     }
 

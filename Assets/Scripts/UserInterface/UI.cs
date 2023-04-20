@@ -30,6 +30,12 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject ControlDisparo;
     [SerializeField] private Transform SpawnPoint_3;
     [SerializeField] private GameObject Enemigos;
+
+    [Header("Final")]
+    [SerializeField] private GameObject Final;
+    [SerializeField] private GameObject RepetirTuto;
+    [SerializeField] private GameObject TerminarTuto;
+    [SerializeField] private Transform SpawnPoint_4;
     #endregion
 
     #region Metodos Unity
@@ -126,6 +132,13 @@ public class UI : MonoBehaviour
         Player.position = SpawnPoint_3.position;
     }
 
+    public void DisparoDone()
+    {
+        NextLine();
+        Final.SetActive(true);
+        Player.position = SpawnPoint_4.position;
+    }
+
     private void activarPuntosControl()
     {
         if (index == 3 && dialogueText.text == Lines[index])
@@ -142,11 +155,18 @@ public class UI : MonoBehaviour
         {
             Enemigos.SetActive(true);
         }
+
+        if(index == 12 && dialogueText.text == Lines[index])
+        {
+            ControlDisparo.SetActive(true);
+        }
     }
 
     public void DoFirstHit()
     {
         NextLine();
     }
+
+
     #endregion
 }

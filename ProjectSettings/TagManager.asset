@@ -11,6 +11,8 @@ TagManager:
   - ControlMover
   - ControlSaltar
   - ControlDisparo
+  - Reinicio
+  - Final
   layers:
   - Default
   - TransparentFX
