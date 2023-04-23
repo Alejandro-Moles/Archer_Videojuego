@@ -13,6 +13,7 @@ TagManager:
   - ControlDisparo
   - Reinicio
   - Final
+  - FinTuto
   layers:
   - Default
   - TransparentFX

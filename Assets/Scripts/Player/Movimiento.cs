@@ -1,6 +1,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movimiento : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Movimiento : MonoBehaviour
 
     private float referenciaSmooth;
     private float smoothAngulo = 7f;
-    
+    private bool isPaused;
 
     [Header("Movimiento")]
     [SerializeField] private float speedMove = 5f;
@@ -34,12 +35,15 @@ public class Movimiento : MonoBehaviour
 
     [Header("Tutorial")]
     [SerializeField] private UI userInterface;
+
+    [Header("Menu")]
+    [SerializeField] private GameObject menu;
     #endregion
 
     #region Metodos Unity
     private void Start()
     {
-        Cursor.lockState = (Input.GetKey(KeyCode.Escape) ? CursorLockMode.None : CursorLockMode.Locked);
+        Cursor.lockState =  CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
         StartCoroutine(doIdleAnimation());
         bowAttack = GetComponent<BowAttack>();
@@ -58,9 +62,15 @@ public class Movimiento : MonoBehaviour
 
     private void Update()
     {
-        Jump();
-        IsRunning();
-        animator.SetBool("IsGrounded", isGrounded);
+        Menu();
+
+        if (!isPaused)
+        {
+            Jump();
+            IsRunning();
+            animator.SetBool("IsGrounded", isGrounded);
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -74,6 +84,22 @@ public class Movimiento : MonoBehaviour
         {
             userInterface.SaltoDone();
         }
+
+        if (other.gameObject.CompareTag("Final"))
+        {
+            userInterface.ActivateFinal();
+        }
+
+        if (other.gameObject.CompareTag("FinTuto"))
+        {
+            SceneManager.LoadScene("Game");
+        }
+
+        if (other.gameObject.CompareTag("Reinicio"))
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
+
     }
     #endregion
 
@@ -191,9 +217,45 @@ public class Movimiento : MonoBehaviour
 
         StartCoroutine(doIdleAnimation());
     }
+
+
+    private void Menu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(isPaused)
+            {
+                isPaused= false;
+            }
+            else
+            {
+                isPaused= true;
+            }
+        }
+
+        if (isPaused)
+        {
+            menu.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale= 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            menu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     #endregion
 
     #region Metodos Get/Set
     public bool GetSetIsGrounded { get => isGrounded; set => isGrounded = value; }
+    public bool GetSetIsPaused { get => isPaused; set => isPaused = value; }
     #endregion
 }

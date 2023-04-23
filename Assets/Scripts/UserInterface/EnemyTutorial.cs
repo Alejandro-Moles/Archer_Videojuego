@@ -23,17 +23,20 @@ public class EnemyTutorial : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("arco"))
         {
-            if(vida == 0) 
-            {
-
-            }
-            else
-            {
                 vida -= 1;
                 EnemyAnimator.SetTrigger("Damage");
                 GetDamage();
-            }
-            
+        }
+    }
+
+    private void Update()
+    {
+        if (vida <= 0)
+        {
+            EnemyAnimator.SetTrigger("Dead");
+            this.GetComponent<BoxCollider>().enabled = false;
+            this.GetComponent<EnemyTutorial>().enabled = false;
+            ui.restEnemies();
         }
     }
 

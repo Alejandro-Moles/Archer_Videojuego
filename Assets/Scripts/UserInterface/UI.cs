@@ -30,17 +30,33 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject ControlDisparo;
     [SerializeField] private Transform SpawnPoint_3;
     [SerializeField] private GameObject Enemigos;
+    private float numEnemies = 3;
+    private bool firstHit;
+    private bool EnemigosMuertos;
+    [SerializeField] private GameObject Enemigo_2;
+    [SerializeField] private GameObject Enemigo_3;
 
     [Header("Final")]
     [SerializeField] private GameObject Final;
     [SerializeField] private GameObject RepetirTuto;
     [SerializeField] private GameObject TerminarTuto;
     [SerializeField] private Transform SpawnPoint_4;
+    [SerializeField] private BoxCollider RepetirTutoColl;
+    [SerializeField] private BoxCollider TerminarTutoColl;
     #endregion
 
     #region Metodos Unity
     private void Start()
     {
+        Enemigo_2.SetActive(false);
+        Enemigo_3.SetActive(false);
+
+        RepetirTutoColl.enabled = false;
+        TerminarTutoColl.enabled = false;
+        RepetirTuto.SetActive(false);
+        TerminarTuto.SetActive(false);
+
+        Final.SetActive(false);
         Enemigos.SetActive(false);
 
         Prueba_1.SetActive(true);
@@ -56,28 +72,13 @@ public class UI : MonoBehaviour
 
     private void Update()
     {
-        activarPuntosControl();
-
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(!Player.GetComponent<Movimiento>().GetSetIsPaused) 
         {
-            if(index == 3 || index == 7 || index == 10 || index == 12) 
-            {
-                StopAllCoroutines();
-                dialogueText.text = Lines[index];
-            }
-            else
-            {
-                if (dialogueText.text == Lines[index])
-                {
-                    NextLine();
-                }
-                else
-                {
-                    StopAllCoroutines();
-                    dialogueText.text = Lines[index];
-                }
-            } 
+            activarPuntosControl();
+            EnemigosDone();
+            AvanzarTexto();
         }
+        
     }
     #endregion
 
@@ -135,8 +136,26 @@ public class UI : MonoBehaviour
     public void DisparoDone()
     {
         NextLine();
+    }
+
+    private void EnemigosDone()
+    {
+        if(numEnemies<= 0 && !EnemigosMuertos)
+        {
+            EnemigosMuertos = true;
+            NextLine();
+        }   
+    }
+
+    public void ActivateFinal()
+    {
+        ControlDisparo.SetActive(false);
+        Prueba_3.SetActive(false);
         Final.SetActive(true);
+        NextLine();
+
         Player.position = SpawnPoint_4.position;
+
     }
 
     private void activarPuntosControl()
@@ -156,17 +175,66 @@ public class UI : MonoBehaviour
             Enemigos.SetActive(true);
         }
 
-        if(index == 12 && dialogueText.text == Lines[index])
+        if (index == 12 && dialogueText.text == Lines[index])
+        {
+            Enemigo_2.SetActive(true);
+            Enemigo_3.SetActive(true);
+        }
+
+        if (index == 13 && dialogueText.text == Lines[index])
         {
             ControlDisparo.SetActive(true);
+        }
+
+        if(index == 15 && dialogueText.text == Lines[index])
+        {
+            RepetirTuto.SetActive(true);
+        }
+
+        if (index == 16 && dialogueText.text == Lines[index])
+        {
+            TerminarTuto.SetActive(true);
+            RepetirTutoColl.enabled= true;
+            TerminarTutoColl.enabled= true;
         }
     }
 
     public void DoFirstHit()
     {
-        NextLine();
+        if (!firstHit)
+        {
+            firstHit = true;
+            NextLine();
+        }
     }
 
+    public void restEnemies()
+    {
+        numEnemies--;
+    }
 
+    private void AvanzarTexto()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (index == 3 || index == 7 || index == 10 || index == 12 || index == 13)
+            {
+                StopAllCoroutines();
+                dialogueText.text = Lines[index];
+            }
+            else
+            {
+                if (dialogueText.text == Lines[index])
+                {
+                    NextLine();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    dialogueText.text = Lines[index];
+                }
+            }
+        }
+    }
     #endregion
 }

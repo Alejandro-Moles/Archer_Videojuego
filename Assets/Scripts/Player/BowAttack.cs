@@ -30,9 +30,12 @@ public class BowAttack : MonoBehaviour
 
     private void Update()
     {
-        Aim();
-        AimAnimation();
-        ShootArrow();
+        if(!GetComponent<Movimiento>().GetSetIsPaused) 
+        {
+            Aim();
+            AimAnimation();
+            ShootArrow();
+        } 
     }
     #endregion
 
