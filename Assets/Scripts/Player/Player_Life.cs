@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_Life : MonoBehaviour
 {
@@ -10,10 +11,18 @@ public class Player_Life : MonoBehaviour
 
     [Header("Animaciones")]
     [SerializeField] private Animator anim;
+
+    public int GetSetVida { get => Vida; set => Vida = value; }
     #endregion
 
     #region Metodos Unity
-    
+    private void Update()
+    {
+        if(Vida <= 0)
+        {
+            SceneManager.LoadScene("Menu");
+        }
+    }
     #endregion
 
     #region Metodos Propios

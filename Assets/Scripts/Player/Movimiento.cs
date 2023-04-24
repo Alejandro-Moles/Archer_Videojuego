@@ -1,5 +1,6 @@
 
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,6 +39,17 @@ public class Movimiento : MonoBehaviour
 
     [Header("Menu")]
     [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject TextoArcher;
+    [SerializeField] private GameObject Marco;
+    [SerializeField] private GameObject Personaje_Panel;
+    [SerializeField] private TextMeshProUGUI Flechas_text;
+
+    [Header("Bow Controller")]
+    [SerializeField] private BowController bowController;
+
+    [Header("Vida")]
+    [SerializeField] private Player_Life playerLife;
+    [SerializeField] private TextMeshProUGUI Vida_text;
     #endregion
 
     #region Metodos Unity
@@ -63,6 +75,8 @@ public class Movimiento : MonoBehaviour
     private void Update()
     {
         Menu();
+        ArrowsNum();
+        PlayerLife();
 
         if (!isPaused)
         {
@@ -249,9 +263,33 @@ public class Movimiento : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Menu");
     }
 
+    public void Personaje()
+    {
+        TextoArcher.SetActive(false);
+        Marco.SetActive(false);
+        Personaje_Panel.SetActive(true);
+    }
+
+    public void Back()
+    {
+        TextoArcher.SetActive(true);
+        Marco.SetActive(true);
+        Personaje_Panel.SetActive(false);
+    }
+
+
+    private void ArrowsNum()
+    {
+        Flechas_text.text = bowController.numArow.ToString();
+    }
+
+    private void PlayerLife()
+    {
+        Vida_text.text = playerLife.GetSetVida + "/300";
+    }
     #endregion
 
     #region Metodos Get/Set

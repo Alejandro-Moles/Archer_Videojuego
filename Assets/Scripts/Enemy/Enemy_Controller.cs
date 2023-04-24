@@ -17,7 +17,7 @@ public class Enemy_Controller : MonoBehaviour
     [SerializeField] private float DistanciaWalk;
     private float DistaciaAttack = 1.7f;
     private float Distancia;
-
+    private float Vida = 3;
 
     [Header("Ataque del Enemigo")]
     [SerializeField] private GameObject AttackPoint;
@@ -33,13 +33,23 @@ public class Enemy_Controller : MonoBehaviour
     {
         Distancia = Vector3.Distance(gameObject.transform.position, Player.position);
         ComprobarDistancias();
+
+        if(Vida <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("arco"))
         {
-            EnemyAnimator.SetTrigger("Damage");
+            if(Vida> 0)
+            {
+                EnemyAnimator.SetTrigger("Damage");
+                Vida--;
+            }
+            
         }
     }
     #endregion

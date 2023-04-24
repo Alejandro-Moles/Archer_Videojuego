@@ -20,8 +20,9 @@ public class MainMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Time.timeScale = 1;
         anim = GetComponent<Animator>();
-
+        Debug.Log(anim);
         //new key
         PlayerPrefs.SetInt("quickSaveSlot", quickSaveSlotID);
     }
@@ -47,6 +48,8 @@ public class MainMenuController : MonoBehaviour {
 
     public void openStartGameOptions()
     {
+        Debug.Log("Start");
+
         //enable respective panel
         MainOptionsPanel.SetActive(false);
         StartGameOptionsPanel.SetActive(true);
@@ -64,6 +67,8 @@ public class MainMenuController : MonoBehaviour {
 
     public void openOptions_Game()
     {
+        Debug.Log("Options");
+
         //enable respective panel
         GamePanel.SetActive(true);
         ControlsPanel.SetActive(false);
@@ -131,6 +136,18 @@ public class MainMenuController : MonoBehaviour {
         else
             Debug.Log("Please write a scene name in the 'newGameSceneName' field of the Main Menu Script and don't forget to " +
                 "add that scene in the Build Settings!");
+    }
+
+
+
+    public void GoTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
+    public void GoAventure()
+    {
+        SceneManager.LoadScene("Game");
     }
     #endregion
 
